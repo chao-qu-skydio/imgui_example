@@ -4,3 +4,6 @@
 [submodule "implot"]
 	path = implot
 	url = https://github.com/epezent/implot.git
+[submodule "imnodes"]
+	path = imnodes
+	url = https://github.com/Nelarius/imnodes
