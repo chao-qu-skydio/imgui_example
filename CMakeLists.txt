@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.21)
 project(myproj LANGUAGES CXX CUDA)
 
 enable_language(CUDA)
@@ -10,8 +10,6 @@ endif()
 
 find_package(OpenGL REQUIRED)
 find_package(glfw3 REQUIRED)
-find_package(SDL2 REQUIRED)
-find_package(X11 REQUIRED)
 
 add_executable(vector_add vector_add.cu)
 target_include_directories(vector_add PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
@@ -30,11 +28,6 @@ add_library(imgui_glfw imgui/backends/imgui_impl_glfw.cpp
 target_include_directories(imgui_glfw PUBLIC imgui/backends)
 target_link_libraries(imgui_glfw PUBLIC imgui glfw OpenGL::GL dl)
 
-add_library(imgui_sdl2 imgui/backends/imgui_impl_sdl.cpp
-                       imgui/backends/imgui_impl_opengl3.cpp)
-target_include_directories(imgui_sdl2 PUBLIC imgui/backends)
-target_link_libraries(imgui_sdl2 PUBLIC imgui OpenGL::GL SDL2::SDL2 X11::X11)
-
 add_executable(imgui_demo imgui_glfw.cpp)
 target_link_libraries(imgui_demo PUBLIC imgui_glfw)
 
@@ -52,8 +45,7 @@ target_link_libraries(implot_demo PUBLIC implot)
 # imnodes
 add_library(imnodes imnodes/imnodes.cpp)
 target_include_directories(imnodes PUBLIC imnodes)
-target_link_libraries(imnodes PUBLIC imgui_sdl2)
+target_link_libraries(imnodes PUBLIC imgui_glfw)
 
-add_executable(imnodes_demo imnodes/example/color_node_editor.cpp
-                            imnodes_sdl2.cpp)
+add_executable(imnodes_demo node_editor.cpp imnodes_glfw.cpp)
 target_link_libraries(imnodes_demo PUBLIC imnodes)
