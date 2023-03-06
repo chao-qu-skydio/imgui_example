@@ -46,6 +46,7 @@ target_link_libraries(implot_demo PUBLIC implot)
 add_library(imnodes imnodes/imnodes.cpp)
 target_include_directories(imnodes PUBLIC imnodes)
 target_link_libraries(imnodes PUBLIC imgui_glfw)
+target_compile_definitions(imnodes PUBLIC IMGUI_DEFINE_MATH_OPERATORS)
 
 add_executable(imnodes_demo node_editor.cpp imnodes_glfw.cpp)
 target_link_libraries(imnodes_demo PUBLIC imnodes)
