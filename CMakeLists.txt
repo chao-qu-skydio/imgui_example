@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.20)
+
+set(CMAKE_CUDA_ARCHITECTURES 75)
 project(myproj LANGUAGES CXX CUDA)
 
 enable_language(CUDA)
@@ -7,6 +9,8 @@ if(NOT DEFINED CMAKE_CUDA_STANDARD)
   set(CMAKE_CUDA_STANDARD 17)
   set(CMAKE_CUDA_STANDARD_REQUIRED ON)
 endif()
+
+set(CMAKE_CXX_STANDARD 17)
 
 find_package(OpenGL REQUIRED)
 find_package(glfw3 REQUIRED)
