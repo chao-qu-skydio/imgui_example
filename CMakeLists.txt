@@ -14,6 +14,11 @@ set(CMAKE_CXX_STANDARD 17)
 
 find_package(OpenGL REQUIRED)
 find_package(glfw3 REQUIRED)
+find_package(absl REQUIRED)
+find_package(fmt REQUIRED)
+
+add_executable(hello hello.cpp)
+target_link_libraries(hello PUBLIC absl::log fmt::fmt)
 
 add_executable(vector_add vector_add.cu)
 target_include_directories(vector_add PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
