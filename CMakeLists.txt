@@ -14,11 +14,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 find_package(OpenGL REQUIRED)
 find_package(glfw3 REQUIRED)
-find_package(absl REQUIRED)
-find_package(fmt REQUIRED)
-
-add_executable(hello hello.cpp)
-target_link_libraries(hello PUBLIC absl::log fmt::fmt)
 
 add_executable(vector_add vector_add.cu)
 target_include_directories(vector_add PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
@@ -32,8 +27,7 @@ add_library(
 target_include_directories(imgui PUBLIC imgui)
 target_compile_definitions(imgui PUBLIC -DImDrawIdx=unsigned)
 
-add_library(imgui_glfw imgui/backends/imgui_impl_glfw.cpp
-  imgui/backends/imgui_impl_opengl3.cpp)
+add_library(imgui_glfw imgui/backends/imgui_impl_glfw.cpp imgui/backends/imgui_impl_opengl3.cpp)
 target_include_directories(imgui_glfw PUBLIC imgui/backends)
 target_link_libraries(imgui_glfw PUBLIC imgui glfw OpenGL::GL dl)
 
@@ -41,12 +35,10 @@ add_executable(imgui_demo imgui_glfw.cpp)
 target_link_libraries(imgui_demo PUBLIC imgui_glfw)
 
 # implot
-add_library(implot implot/implot.cpp implot/implot_items.cpp
-  implot/implot_demo.cpp)
+add_library(implot implot/implot.cpp implot/implot_items.cpp implot/implot_demo.cpp)
 target_include_directories(implot PUBLIC implot)
 target_link_libraries(implot PUBLIC imgui_glfw)
-target_compile_definitions(implot PUBLIC IMPLOT_DEBUG IMPLOT_DLL_EXPORT
-  IMPLOT_BACKEND_ENABLE_OPENGL3)
+target_compile_definitions(implot PUBLIC IMPLOT_DEBUG IMPLOT_DLL_EXPORT IMPLOT_BACKEND_ENABLE_OPENGL3)
 
 add_executable(implot_demo implot_glfw.cpp)
 target_link_libraries(implot_demo PUBLIC implot)
